@@ -8,7 +8,7 @@ public class PacMan : MonoBehaviour
     [SerializeField]
     float eatTime = 4f;
     [SerializeField]
-    AudioSource eatingNoise;
+    AudioSource eatSong;
     [SerializeField]
     AudioSource eatNoise;
 
@@ -30,13 +30,11 @@ public class PacMan : MonoBehaviour
 
     public IEnumerator Eating()
     {
-        Debug.Log("Begin Eating");
-
         m_IsInvincible = true;
         m_CanEat = true;
 
         // Play Music
-
+        eatSong.Play();
 
         // Ghosts edible
         Ghost[] ghosts = FindObjectsOfType<Ghost>();
@@ -46,8 +44,6 @@ public class PacMan : MonoBehaviour
         }
 
         yield return new WaitForSeconds(eatTime);
-
-        Debug.Log("Stop eating");
 
         // Ghosts not edible
         foreach (Ghost g in ghosts)
@@ -59,7 +55,7 @@ public class PacMan : MonoBehaviour
         }
 
         // Stop Music
-
+        eatSong.Stop();
 
         m_IsInvincible = false;
         m_CanEat = false;
@@ -68,6 +64,8 @@ public class PacMan : MonoBehaviour
     public void EatGhost(GameObject ghost)
     {
         Destroy(ghost.gameObject);
+
+        eatNoise.PlayOneShot(eatNoise.clip);
 
         // Update Score
         
