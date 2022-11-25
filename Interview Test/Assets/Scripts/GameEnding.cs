@@ -29,7 +29,15 @@ public class GameEnding : MonoBehaviour
 
     public void CaughtPlayer()
     {
-        m_IsPlayerCaught = true;
+        bool playerIsInvincible = player.GetComponent<PacMan>().GetIsInvincible();
+        if (playerIsInvincible)
+        {
+            m_IsPlayerCaught = false;
+        }
+        else
+        {
+            m_IsPlayerCaught = true;
+        }
     }
 
     private void Update()
@@ -46,7 +54,7 @@ public class GameEnding : MonoBehaviour
 
     void EndLevel(CanvasGroup imageCanvasGroup, bool doRestart, AudioSource audioSource)
     {
-        if(!m_HasAudioPlayed)
+        if (!m_HasAudioPlayed)
         {
             audioSource.Play();
             m_HasAudioPlayed = true;
