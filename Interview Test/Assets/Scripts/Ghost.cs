@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class Ghost : MonoBehaviour
 {
+    public static int scoreValue = 5000;
+
     [SerializeField]
     SkinnedMeshRenderer meshRenderer;
 

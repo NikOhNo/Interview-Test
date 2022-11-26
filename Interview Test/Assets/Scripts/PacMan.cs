@@ -68,7 +68,7 @@ public class PacMan : MonoBehaviour
         eatNoise.PlayOneShot(eatNoise.clip);
 
         // Update Score
-        
+        FindObjectOfType<ScoreManager>().AddScore(Ghost.scoreValue);
     }
 
     public bool GetIsInvincible()
