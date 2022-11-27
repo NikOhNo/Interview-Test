@@ -267,6 +267,7 @@ GameObject:
   m_Component:
   - component: {fileID: 812279876222483595}
   - component: {fileID: 812279876230222691}
+  - component: {fileID: 6680759071664253991}
   - component: {fileID: 1177833937689541046}
   - component: {fileID: 7602522103705648189}
   - component: {fileID: 1242578914796284888}
@@ -274,7 +275,7 @@ GameObject:
   - component: {fileID: 1078599460009232599}
   m_Layer: 0
   m_Name: JohnLemon
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -316,6 +317,21 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!114 &6680759071664253991
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 812279876222967979}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9773d824ae4a4aa418db517ee78b8fe9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  eatTime: 4
+  eatingNoise: {fileID: 0}
+  eatNoise: {fileID: 0}
 --- !u!54 &1177833937689541046
 Rigidbody:
   m_ObjectHideFlags: 0
