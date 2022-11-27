@@ -5,7 +5,8 @@ using UnityEngine;
 
 public class PowerPellet : MonoBehaviour
 {
-    public static int scoreValue = 1500;
+    [SerializeField]
+    int scoreValue = 1500;
 
     AudioSource m_AudioSource;
 

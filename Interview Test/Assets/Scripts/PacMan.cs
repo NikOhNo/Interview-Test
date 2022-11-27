@@ -1,19 +1,28 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class PacMan : MonoBehaviour
 {
     [SerializeField]
     float eatTime = 4f;
     [SerializeField]
+    Slider eatTimeSlider;
+    [SerializeField]
+    Image eatFilter;
+    [SerializeField]
     AudioSource eatSong;
     [SerializeField]
     AudioSource eatNoise;
 
+    float m_EatTimeLeft = 0f;
+
+    bool m_Eating = false;
     bool m_IsInvincible = false;
-    bool m_CanEat = false;
+    bool m_CanEat = false; 
 
     private void OnCollisionEnter(Collision collision)
     {
@@ -25,13 +34,13 @@ public class PacMan : MonoBehaviour
 
     public void BeginEating()
     {
-        StartCoroutine(Eating());
-    }
+        m_Eating = true;
+        m_EatTimeLeft = eatTime;
 
-    public IEnumerator Eating()
-    {
         m_IsInvincible = true;
         m_CanEat = true;
+
+        eatFilter.enabled = true;
 
         // Play Music
         eatSong.Play();
@@ -42,23 +51,37 @@ public class PacMan : MonoBehaviour
         {
             g.BecomeEdible();
         }
+    }
 
-        yield return new WaitForSeconds(eatTime);
+    private void StopEating()
+    {
+        m_Eating = false;
 
-        // Ghosts not edible
-        foreach (Ghost g in ghosts)
-        {
-            if (g != null)      // have to check here since ghost might be eaten and destroyed
-            {
-                g.StopEdible();
-            }
-        }
+        m_IsInvincible = false;
+        m_CanEat = false;
+
+        eatFilter.enabled = false;
 
         // Stop Music
         eatSong.Stop();
 
-        m_IsInvincible = false;
-        m_CanEat = false;
+        Ghost[] ghosts = FindObjectsOfType<Ghost>();
+        foreach (Ghost g in ghosts)
+        {
+            g.StopEdible();
+        }
+    }
+
+    private void Update()
+    {
+        m_EatTimeLeft -= Time.deltaTime;
+        eatTimeSlider.value = m_EatTimeLeft / eatTime;
+
+        if (m_Eating && m_EatTimeLeft <= 0)
+        {
+            m_EatTimeLeft = 0f;
+            StopEating();
+        }
     }
 
     public void EatGhost(GameObject ghost)
@@ -74,5 +97,10 @@ public class PacMan : MonoBehaviour
     public bool GetIsInvincible()
     {
         return m_IsInvincible;
+    }
+
+    public float GetEatTimeLeft()
+    {
+        return m_EatTimeLeft;
     }
 }

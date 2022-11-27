@@ -15,6 +15,11 @@ public class ScoreManager : MonoBehaviour
         UpdateScore();
     }
 
+    public int GetScore()
+    {
+        return m_GameScore;
+    }    
+
     private void UpdateScore()
     {
         scoreText.text = "Score: " + m_GameScore;
